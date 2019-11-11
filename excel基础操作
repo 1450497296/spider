@@ -1,0 +1,41 @@
+import  xlrd
+
+import xlwt
+book=xlrd.open_workbook("E:\\text.xls")
+#print(book.sheet_names())
+sheet=book.sheet_by_index(0)   #选择 操作那张表
+#print(sheet.ncols)     #获取字段数
+#print(sheet.row(0))    #根据索引获取哪一行的数据
+#print(sheet.row_slice(3,start_colx=1))  #取出第6行的内容包含数据类型 从第3列开始获取
+#print(sheet.row_slice(3,start_colx=2,end_colx=3))   #取出第6行的内容包含数据类型 从第3列开始获取
+#print(sheet.cell(1,1).value)
+
+#print(sheet.cell_value(3,0))     #先数行数，在列数
+
+#print(xlrd.cellname(1,2))  #获取表格位置
+
+#print(sheet.nrows)  #获取行数
+
+#for x in range(sheet.nrows):
+ #   if x==0:
+  #    xw=sheet.cell_value(0+x,0)
+     #   dsa=sheet.cell_value(0+x,1)
+      ## print(hebing)
+comanp=input('输入公司名字：')
+workbook = xlwt.Workbook(encoding='gbk')
+worksheet = workbook.add_sheet('sheet')
+for x in range(sheet.nrows):
+    if x==0:
+        worksheet.write(0,0,'name')
+        worksheet.write(0,1,'company')
+        worksheet.write(0,2, 'index')
+        worksheet.write(0,3,'合并')
+        continue
+    else:
+        dw=sheet.cell_value(0+x,0)
+        worksheet.write(0+x,0,dw)
+        worksheet.write(0+x,1,comanp)
+        worksheet.write(0+x,2,str(0+x))
+        da=dw+';'+comanp+';'+str(0+x)+';'
+        worksheet.write(0+x,3,da)
+workbook.save('E:\\'+comanp+'.xls')
