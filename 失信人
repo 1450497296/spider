@@ -1,0 +1,58 @@
+import requests
+import re
+import time
+
+num=0
+url='https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=%E5%A4%B1%E4%BF%A1%E4%BA%BA&rn=50&oq=%25E5%25A4%25B1%25E4%25BF%25A1%25E4%25BA%25BA&rsv_pq=f51f01380006a29e&rsv_t=91c43%2FKc25Fha8IJNcCLJ8JopuL72uBBkEOJNE723DnfRm26%2FcyVdQ8ubMo&rqlang=cn&rsv_enter=0&rsv_dl=tb'
+headers={ "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36","Referer": "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=%E5%A4%B1%E4%BF%A1%E4%BA%BA&rn=50&oq=%25E5%25A4%25B1%25E4%25BF%25A1%25E4%25BA%25BA&rsv_pq=f51f01380006a29e&rsv_t=91c43%2FKc25Fha8IJNcCLJ8JopuL72uBBkEOJNE723DnfRm26%2FcyVdQ8ubMo&rqlang=cn&rsv_enter=0&rsv_dl=tb"}
+
+repost=requests.session()
+reques=repost.get(url,headers=headers)
+start_page=int(input('输入开始页码：'))
+end_page=int(input('输入结束页码：'))
+for page in range(start_page,end_page+1):
+    num+=1
+    log_url="https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6899&query=%E5%A4%B1%E4%BF%A1%E4%BA%BA&pn="+str(page*10)+"&rn=10&ie=utf-8&oe=utf-8&format=json&t=1571030566183&cb=jQuery110208264993174990449_1571030501317&_=1571030501321"
+    concent=repost.get(log_url,headers=headers).text
+    courtName=re.findall('"courtName":"(.*?)"',concent)  #法院名称
+    businessEntity=re.findall('"businessEntity":"(.*?)"',concent)  #企业单位    0
+    cardNum=re.findall('"cardNum":"(.*?)"',concent)  # 卡号
+    areaNameNew=re.findall('"areaNameNew":"(.*?)"',concent) #区域名称新建
+    areaName=re.findall('"areaName":"(.*?)"',concent)  #区域名
+    age=re.findall('"age":"(.*?)"',concent) #年龄
+    caseCode=re.findall('"caseCode":"(.*?)"',concent)  #案例代码
+    disruptTypeName=re.findall('"disruptTypeName":"(.*?)"',concent)
+    duty=re.findall('"duty":"(.*?)"',concent)  #责任
+    gistId=re.findall('"gistId":"(.*?)"',concent)
+    gistUnit=re.findall('"gistUnit":"(.*?)"',concent)
+    iname=re.findall('"iname":"(.*?)"',concent)
+    performance=re.findall('"performance":"(.*?)"',concent)
+    publishDate=re.findall('"publishDate":"(.*?)"',concent)
+    SiteId=re.findall('"SiteId":"(.*?)"',concent)  #0
+    for courtName_1,cardNum_1,areaNameNew_1,areaName_1,age_1,caseCode_1,disruptTypeName_1,duty_1,gistId_1,gistUnit_1,iname_1,performance_1,publishDate_1 \
+           in zip(courtName,cardNum,areaNameNew,areaName,age,caseCode,disruptTypeName,duty,gistId,gistUnit,iname,performance,publishDate):
+        item = {}
+        item['courtName'] = courtName_1
+   # item['businessEntity'] = businessEntity_1
+        item['cardNum'] = cardNum_1
+        item['areaNameNew'] = areaNameNew_1
+        item['areaName'] = areaName_1
+        item['age'] = age_1
+        item['caseCode'] = caseCode_1
+        item['disruptTypeName'] = disruptTypeName_1
+        item['duty'] = duty_1
+        item['gistId'] = gistId_1
+        item['gistUnit'] = gistUnit_1
+        item['iname'] = iname_1
+        item['performance'] = performance_1
+        item['publishDate'] = publishDate_1
+    #item['SiteId'] = SiteId_1
+        with open("D:\\失信人\\data.txt",'a+')as f:
+            f.write(item['courtName']+'\t'+item['cardNum']+'\t'+item['areaNameNew']+'\t'+item['areaName']+'\t'+item['age']+'\t'+item['caseCode']+'\t'+item['disruptTypeName']+'\t'+item['duty']+'\t'+item['gistId']+'\t'+item['gistUnit']+'\t'+item['iname']+'\t'+item['performance']+'\t'+item['publishDate']+'\n')
+            f.close()
+    print("第"+str(num)+"页数据完成")
+    time.sleep(5)
+print('完成爬取')
+
+
+
