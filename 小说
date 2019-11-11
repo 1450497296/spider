@@ -1,0 +1,37 @@
+#text y
+# update
+import urllib.request
+from lxml import html
+etree = html.etree
+
+url='http://www.xbiquge.la/7/7931/'
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.'
+                         '0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36'}
+repost=urllib.request.Request(url=url,headers=headers)
+reques=urllib.request.urlopen(repost)
+HTML1=reques.read().decode()
+ye=etree.HTML(HTML1)
+HTML_title=ye.xpath("//div[@id='wrapper']//div[@class='box_con']/div[@id='list']/dl//dd//text()")
+HTML_concent=ye.xpath("//div[@id='wrapper']//div[@class='box_con']/div[@id='list']/dl//dd//@href")
+for x in range(len(HTML_title)):
+    path="D:\\小说\\"+HTML_title[x]+".txt"
+    f=open(path,'w+')
+    f.close()
+    url_concent = "http://www.xbiquge.la"+HTML_concent[x]
+    head={'User-Agent': 'Mozilla/5.0 (Windows NT 10.'
+                         '0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.146 Safari/537.36'}
+    repost1 = urllib.request.Request(url=url_concent, headers=headers)
+    reques1 = urllib.request.urlopen(repost1)
+    HTML2 = reques1.read().decode()
+    ye1 = etree.HTML(HTML2)
+    concent=ye1.xpath("//div[@id='content']//text()")
+    f=open(path,'w',encoding='utf-8')
+    f.writelines(concent)
+    f.close()
+    print(HTML_title[x],"已下载")
+print('小说已经下载完了')
+
+
+#for concent,title in zip(HTML_concent,HTML_title):
+   # concent_age="http://www.xbiquge.la"+concent
+   # print({"章节名":title,"内容链接":concent_age})
