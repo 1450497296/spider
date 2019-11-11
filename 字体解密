@@ -1,0 +1,42 @@
+import  requests
+import  re
+from fontTools.ttLib import TTFont
+import  base64
+from lxml import html
+etree = html.etree
+
+url='https://sh.zu.anjuke.com/fangyuan/1459956061?isauction=2&shangquan_id=6337&legoFeeUrl=https%3A%2F%2Flegoclick.58.com%2Fjump%3Ftarget%3DpZwY0ZnlsztdraOWUvYKuad6PA7Wny76niYQnhmLsHEkmyNVmHbLmBYkm19QnhEYmvDzm1bKnHTknHTOnHNYTEDQnHbOn1cvnWczrjmLPjNvTHnvnjTkTHnvnjTkTHD_nHTKnHTQTHDdP1cdrjmzPH03njmKnE7AEzdEEzdKib_VOlXxOCB4sXhehrB8Gryc-SB6Jrh6VEDQTHDKTiYQTEDQnHbknHnOnj0vrjEzn101nHckTHmKTHDKnAEOujc1rHTVnWTkPiYYnhE3sHbLmycVuA7WmHbLuj9vnyPBTHDQrHTQn1bkP1mOPHb3nHnvn1cKnHDOnjD1rHTLPW93rjNQnjEvPTDKTEDKTiYKTE7CIZwk01CfsLPCsMGdsh78pMRouiOWUvYf5vuzUvYqUh7vpyI6IA-fU9DkEbR7rDczwaY3nYDksHIAnDcVPjEOwadDn1NkEWm3rNFawjnKnH9ksWDvri3dnz3QrjDKnTDkTEDQsjDQTgVqTHDknjnvTHDknjDvPWEKuh76rAmzuhmVuHczniYYn1TQsH6WmW9VmvRbPh7BmHuWm1ckTEDYTEDKnkDQnjD_nHTkrikvn1nLTHIbuWTOnjckPhF6nWcQrHD'
+
+headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"}
+reque=requests.get(url,headers=headers).text
+
+zhengze=re.findall("src:url\('data:application\/font-ttf;charset=utf-8;base64,(.*?)\)",reque)[0]        #将字体那段加密给截取出来
+base=base64.b64decode(zhengze)                  #解密
+with open("D:\\anjuke.ttf","wb")as f:       #写进文件
+    f.write(base)
+    f.close()
+font=TTFont("D:\\anjuke.ttf")        #用TTFont函数打开
+font_Gly=font.getGlyphOrder()        #获取Glyorder
+font_cmap=font.getBestCmap()        #获取坐标
+
+cmap_data={}
+print(font_Gly)
+for cmap_key,cmap_value in font_cmap.items():
+    cmap_data[cmap_value]=hex(cmap_key).replace('0','&#',1)+';'   #转成16进制
+text=['','0','1','2','3','4','5','6','7','8','9']           #字体解密之后的排序
+Gly_data={}
+print(cmap_data)
+for index,code in enumerate(text):
+    Gly_data[font_Gly[index]]=code
+print(Gly_data)
+he_data={}
+for key,value in cmap_data.items():
+    try:
+        he_data[cmap_data[key]]=Gly_data[key]
+    except:
+        pass
+for x ,y in he_data.items():
+    reque=re.sub(x,y,reque)             #替换
+print(he_data)
+print(reque)
+
