@@ -1,0 +1,23 @@
+import  requests
+from lxml import html
+import  re
+etree = html.etree
+num=0
+start_page=int(input('输入开始页码:'))
+end_page=int(input('输入结束页码:'))
+url='https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1571131110669_R&pv=&ic=&nc=1&z=&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&hs=2&sid=&word=%E4%BA%8C%E6%AC%A1%E5%85%83%E5%8A%A8%E6%BC%AB%E4%BA%BA%E7%89%A9%E8%90%8C%E5%B0%91%E5%A5%B3&f=3&oq=%E4%BA%8C%E6%AC%A1&rsp=4'
+headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36","Referer": "https://image.baidu.com/search/index?tn=baiduimage&ipn=r&ct=201326592&cl=2&lm=-1&st=-1&fm=result&fr=&sf=1&fmq=1571131110669_R&pv=&ic=&nc=1&z=&hd=&latest=&copyright=&se=1&showtab=0&fb=0&width=&height=&face=0&istype=2&ie=utf-8&hs=2&sid=&word=%E4%BA%8C%E6%AC%A1%E5%85%83%E5%8A%A8%E6%BC%AB%E4%BA%BA%E7%89%A9%E8%90%8C%E5%B0%91%E5%A5%B3&f=3&oq=%E4%BA%8C%E6%AC%A1&rsp=4"}
+
+Session=requests.session()
+request=Session.get(url,headers=headers)
+for page in range(start_page,end_page+1):
+    log_url="https://image.baidu.com/search/acjson?tn=resultjson_com&ipn=rj&ct=201326592&is=&fp=result&queryWord=%E4%BA%8C%E6%AC%A1%E5%85%83%E5%8A%A8%E6%BC%AB%E4%BA%BA%E7%89%A9%E8%90%8C%E5%B0%91%E5%A5%B3&cl=2&lm=-1&ie=utf-8&oe=utf-8&adpicid=&st=-1&z=&ic=&hd=&latest=&copyright=&word=%E4%BA%8C%E6%AC%A1%E5%85%83%E5%8A%A8%E6%BC%AB%E4%BA%BA%E7%89%A9%E8%90%8C%E5%B0%91%E5%A5%B3&s=&se=&tab=&width=&height=&face=0&istype=2&qc=&nc=1&fr=&expermode=&force=&pn="+str(page*30)+"&rn=30&gsm=&1571131138659="
+    reponse=Session.get(log_url,headers=headers).text
+    url_img=re.findall('"thumbURL":"(.*?)"',reponse)
+    for  url_src in url_img:
+        num+=1
+        lod=requests.get(url_src,headers=headers).content
+        with open("D:\\图片\\"+str(num)+".jpg","wb+")as f:
+            f.write(lod)
+            f.close()
+print('爬取完成')
