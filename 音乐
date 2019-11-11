@@ -1,0 +1,73 @@
+import  requests
+from selenium import webdriver
+from lxml import html
+etree = html.etree
+import time
+
+class Spider(object):
+    def __init__(self):
+        self.start_page=start_page
+        self.address="D:\\歌曲名字\\"
+        self.end_page=end_page
+        self.names=''
+        self.w=-1
+        self.header = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+                                     " (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36"}
+
+    """ 分析出要爬取的所有url """
+    def HTML_url (self):
+        for x in range(start_page,end_page+1):
+            url= "http://www.htqyy.com/top/musicList/hot?pageIndex="+str(x)+"&pageSize=20"
+            Song=requests.get(url,headers=self.header).text
+            Song_name = etree.HTML(Song)
+            Song_name_i = Song_name.xpath("//ul[@id='musicList']//span[2]//text()")   #获取歌曲名字
+            self.names=Song_name_i
+
+            self.music_url(url)
+
+
+
+    """  分析出歌曲的url """
+    def music_url(self, url,):
+        m_url=requests.get(url, headers=self.header).text
+        HTML_concent = etree.HTML(m_url)
+        HTML_url=HTML_concent.xpath('//ul/li/a[1]/@href')
+        for q in HTML_url:
+            url_concant='http://www.htqyy.com'+q
+            self.web_music(url_concant)
+
+
+    """调用selenium解析出下载歌曲的隐藏地址"""
+    def web_music(self, url_concant):
+        driver_path='C:\\Users\\yezhi\\PycharmProjects\\chromedriver_win32\\chromedriver'
+        driver=webdriver.Chrome(executable_path=driver_path)
+        driver.get(url_concant)
+        data=driver.page_source
+        data1=etree.HTML(data)
+        data2=data1.xpath("//div[@class='jplayerWrap']//div[@class='jp-jplayer']//audio//@src")
+        for music in data2:
+            driver.close()
+            self.download_music(music)
+            self.w+=1
+
+    """下载歌曲，保存在本地"""
+    def  download_music(self,music):
+
+        download_Song=requests.get(music,headers=self.header)
+        if self.w<=18:
+            with open(self.address+self.names[self.w+1]+".mp3","wb")as e:
+                e.write(download_Song.content)
+                e.close()
+                print('爬取歌曲成功==>',self.names[self.w+1])
+                time.sleep(1)
+        else:
+            print('当前页码歌曲下载完了')
+            self.w=-1
+
+
+
+if __name__ == "__main__":
+    start_page = int(input("请输入开始页码："))
+    end_page = int(input('请输入结束页码：'))
+    spider = Spider()
+    spider.HTML_url()
