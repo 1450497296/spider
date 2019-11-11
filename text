@@ -1,0 +1,44 @@
+import pyautogui
+import time
+#print(pyautogui.size())   #获取屏幕的分辨率
+
+#pyautogui.moveTo(1416,522,duration=1)  #移动鼠标位置
+
+#pyautogui.moveRel(0,300,duration=1)  #根据当前位置移动鼠标
+
+#pyautogui.confirm('这个消息弹窗是文字+OK+Cancel按钮')
+
+#print(pyautogui.position())   #获取当前鼠标的位置
+
+#pyautogui.click(980,637)    #控制鼠标点击
+
+#pyautogui.rightClick(960,600)   #右击
+
+#pyautogui.doubleClick(650,117)   #双击
+
+#pyautogui.dragRel(100,0,duration=1)
+
+#pyautogui.alert('这个消息弹窗是文字+OK按钮')   #OK
+
+#pyautogui.confirm('这个消息弹窗是文字+OK+Cancel按钮') # 返回OK 或 Cancel
+
+#pyautogui.prompt('这个消息弹窗是让用户输入字符串，单击OK') # 返回输入的字符串
+
+#pyautogui.scroll(200)   #滚屏
+
+#pyautogui.click(1482,801)
+
+#pyautogui.typewrite('hello word!',interval=0.25)   #interval   每隔字符0.25秒输入
+
+#pyautogui.keyDown('shift')   #键盘按下
+
+#pyautogui.keyUp('shift')   #键盘释放
+
+
+#pyautogui.hotkey('ctrl', 'c')  #热键按键ctrl的同时按下c
+
+#pyautogui.press('enter')  #键盘功能按键
+
+img=pyautogui.screenshot()
+img.save('foo.png')
+pyautogui.screenshot('foo.png')
