@@ -1,0 +1,30 @@
+from selenium   import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+driver_path="C:\\Users\\yezhi\\PycharmProjects\\chromedriver_win32\\chromedriver.exe"
+driver=webdriver.Chrome(executable_path=driver_path)
+driver.get('https://passport.baidu.com/v2/?login&tpl=mn&u=http%3A%2F%2Fwww.baidu.com%2F')        #打开网页
+#print(driver.page_source)          #自动化获取源代码
+#inTag=driver.find_element_by_id('kw')    #使用id的方法
+#inTag=driver.find_element_by_name('wd')    #使用name的方法
+#inTag=driver.find_element_by_class_name('s_ipt')  #使用class的方法
+inTag=driver.find_elements_by_id("TANGRAM__PSP_3__footerULoginBtn")[0].click()    # 因为取出来的值是列表，所以要加【0】
+use=driver.find_elements_by_id('TANGRAM__PSP_3__userName')[0]
+use.send_keys('1450497296')   #  输入框输入
+pass_word=driver.find_elements_by_id('TANGRAM__PSP_3__password')[0]
+pass_word.send_keys('11111')   #输入框输入
+deng=driver.find_elements_by_id('TANGRAM__PSP_3__submit')[0].click()
+
+
+
+
+
+driver_path="C:\\Users\\yezhi\\PycharmProjects\\chromedriver_win32\\chromedriver.exe"
+driver=webdriver.Chrome(executable_path=driver_path)
+driver.get('https://www.baidu.com/')
+inputTag=driver.find_elements_by_id('kw')[0]
+submit=driver.find_elements_by_id('su')[0]
+actions=ActionChains(driver)
+actions.move_to_element(inputTag)                   #将鼠标悬浮在指定的地方
+actions.send_keys_to_element(inputTag,'python')
+actions.move_to_element(submit).click(submit).perform()              #click  是点击
