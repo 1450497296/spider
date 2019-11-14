@@ -1,0 +1,44 @@
+import pyautogui
+import time
+
+
+#last_pos=pyautogui.position()
+#try:
+#    while True:
+#        new_pos=pyautogui.position()
+#        if new_pos!=last_pos:
+#            print(new_pos)
+#            last_pos=new_pos
+#except:
+#    print('exit')
+
+#help=pyautogui.locateOnScreen('E:\\help.jpg')   #找到当前屏幕的和截图一致的地方
+#print(help)
+#goto_pos=pyautogui.center(help)    #获取到图片坐标
+#print(goto_pos)
+
+#pyautogui.click(goto_pos,duration=1)
+#pyautogui.click(None,450,duration=1)
+
+
+#pyautogui.click(button='left')  #点击一次编辑器
+#pyautogui.typewrite('I LIKE PYTHON',0.25)
+#pyautogui.typewrite(['enter','g','o','o','d','left','left','left','backspace','G','end','.'],0.25)  #输入【good】，然后将头文字改为大写G，最后在结尾写一个句号
+
+#pyautogui.PAUSE=0.5
+#pyautogui.keyDown('ctrl')   #按下ctrl键
+#pyautogui.press('a')    #按下a键
+#pyautogui.press('c')   #按下c键
+#time.sleep(5)
+#pyautogui.keyUp('ctrl')       #松开ctrl键
+#pyautogui.press('backspace')   #按下退见
+#time.sleep(5)
+#pyautogui.hotkey('ctrl','v')   #组和键
+
+#location = pyautogui.locateOnScreen('E:\\help.jpg')
+#if location !=None:
+ #   print('yes')     # 找到图片是不是在屏幕上
+#else:
+#    print('NO')
+
+#Point(x=497, y=22)
