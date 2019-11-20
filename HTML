@@ -1,0 +1,192 @@
+
+文本标签：
+
+	变大：<big></big>	
+	变小：<small></small>
+	加粗: <b></b>  <strong></strong>
+	倾斜：<i></i>   <em></em>
+	下划线： <u></u>   <ins></ins>	
+	删除线：<del></del>   <s></s>
+	字体：<font></font>  属性【color：颜色   size：大小  face:样式   样式：比如:宋体等等等】
+	上标:<sup></sup>   就跟2次方一样
+	下标：<sub></sub>
+	注释： <!--  内容 -->
+	
+	
+排版标签：
+	
+	换行：<br />
+	段落：<p></p> 属性: align  对齐：left  center  right
+	横线：<hr/>  属性：align 对齐：left  center  right  color：颜色  width：宽度  size： 粗细  noshade：无阴影
+	标题标签：<h1></h1>  <h1>:最大   <h6>:最小  属性：align
+	Div：<div></div>:块标签
+	Span：<span></span>:行内标签
+	注意：块可以设置宽高，行内元素不可以设置宽高
+	
+
+有序列表：
+	<ol>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+	属性： type: 1,a,A,I,L,none   start=起始位置3
+	
+	
+无序列表：
+	<ul>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+	属性: type: dosc实心圆,circle 空心圆, square  小方块
+	
+	
+图片路径：
+	目录：
+		当前目录: 【./】,【当前目录、可以省略不写】
+	    上级目录: 【../】
+		下级目录：【文件夹】
+	
+链接标签:
+	语法：<a href='url'>内容</a>
+	
+表格标签：
+	<table>
+		<tr>	#定义表格行
+			<td></td>  :定义表格单元
+		</tr>
+		
+	</table>
+	
+表格属性：	
+		border：表格边框
+		cellpadding：单元格内的空间
+		cellspacing：单元 格之间的空间
+		rowspan：合并行
+		colspan：合并列
+		align：左右对齐
+		valign:上下对齐
+		
+		
+		
+表单标签：
+	<input type='text'  placeholder="请输入用户名"> 输入框
+	 <input type="password">  密码框
+	 <input type="checkbox"  checked >苹果   复选框
+	 <input type="radio" name="ye">男  单选框
+	 <input type="file">   上传文件
+	  <input type="submit">  提交
+	  <input type="reset">  重置
+	  <textarea cols="30" rows="10"></textarea>   多行文本框
+	  
+CSS背景样式：
+	background-color：背景颜色
+	background-image：背景图片
+	background-repeat:背景图片的平铺方式
+	background-position：背景图片的位置
+	background-attachment:背景图随滚动条的移动方式
+	 
+	
+CSS语法：
+	内嵌引入：
+		<style type="text/css">
+		</style>
+	 
+	 外部引入：
+		<link rel='stylesheet' type='text/css' href="url">
+		
+		
+CSS核心语法：
+	选择器，选择页面元素的工具
+	通用： *， 标签，类：.class  名， id：#id名
+	伪类：a:link, a:hover, a:visited
+	a:link : 未访问的样式
+	a:visited:访问后的样式
+	a:hover :鼠标放上去
+	a:active:鼠标激活后
+	以上顺序不可以打乱
+	
+CSS边框样式：
+	border-style:边框的样式
+		solid:实线
+		dashed:虚线
+		dotted：点线
+	border-width：边框的大小
+	border-color：颜色
+	边框也可以针对某一条单独设置：  border-left-style :中间是方向  left、right、top、bottom
+	
+	padding:内边距（内填充）
+		只写一个值：30px
+	单一样式只能写一个值：
+		padding-left
+		padding-top
+		padding-right
+		padding-buttom
+	margin:外边距(外填充):
+		margin-left
+		margin-right
+		margin-buttom
+		margin-top
+		
+溢出隐藏：
+	overflow
+		auto
+		
+透明和手势：
+	opacity:0(透明)~1(不透明)
+	rgba()：0~1
+		注；可以让指定的样式透明，而不影响其他样式
+		
+	cursor:手势
+		default：默认箭头
+		要实现自定义手势：
+			准备图片：  .cur   .ico为结尾（该后面的格式）
+			cursor:url(./img/cursor.ico),auto;
+	
+		
+		
+		
+CSS段落样式：
+	text-decoration：文本装饰
+		下划线：underline
+		删除线：line-through
+		上划线:overline
+		不添加任何装饰：none
+		注：添加多个文本修饰：line-，
+	text-transform:文本大小写（针对英文段落）
+		小写：lowercase
+		小写：uppercase
+		只针对首字母大写：capitalize
+	
+
+CSS定位：
+	position ：
+		static(默认
+		relative：
+		absolute
+		fixed
+		sticky
+		
+	relative:
+		如果没有定位偏移量，对元素本身没有影响
+		不使元素脱离文档流
+		不影响其他元素布局
+		left、top、right、bottom 是相对于当前元素自身进行偏移的
+		
+	absolute：
+		使元素完全脱离文档流
+		使内联元素支持宽高（让内联具备块特性）
+		使块元素默认宽根据内容决定（让块具备内联的特性）
+		如果有定位祖先元素元素发生编译，没有定位祖先元素相对于整个文档发生偏移（绝对、相对、固定）
+		
+		
+iframe标签：
+	可以引入其他的html到当前的url的中显示。
+	主要是利用iframe的属性进行样式的调节。
+	
+	属性：
+		frameborder:规定是否显示框架周围的变宽
+		src：规定在ifranme中引入的url
+		srcdoc：规定在iframe中显示的页面内容
+	
