@@ -29,3 +29,4 @@ Django中创建项目：
 
 在浏览器中输入http://127.0.0.1:8000/或者http://localhost:8000/
 
+创建应用： 一个项目类似一个架子，但是真正起作用的还是app，到终端进入项目所在的路径，然后执行python manage.py startapp [名称]
