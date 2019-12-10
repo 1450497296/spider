@@ -1,0 +1,62 @@
+import pymysql
+
+class System:
+
+    def __init__(self):
+        self.conn=pymysql.connect('localhost','root','yezhi123','te_text')
+        self.cursor=self.conn.cursor()
+        self.shu=shu
+
+    def select(self):
+        select_SQL='select * from ye_text_01'
+        self.cursor.execute(select_SQL)
+        resulf=self.cursor.fetchall()
+        while True:
+            quanbu = int(int(input("1.查看全部数据 2.查看名字  3.查看年龄    任意键到达第一个页面")))
+            for row in resulf:
+                name = row[0]
+                age = row[1]
+                if quanbu==1:
+                    print(name+'\t'+str(age))
+                elif quanbu==2:
+                    print(name)
+                elif quanbu==3:
+                    print(age)
+                else:
+                    print('退出')
+                    break
+            break
+
+    def table_delete(self):
+        while True:
+            delete_table=int(input('1.按照年龄来删除  2.按照名字来删除  3.按照年龄和名字来删除:'))
+            if delete_table==1:
+                delete_age=int(input("大于您输入的数字全部删除:"))
+                try:
+                    delete_sql='delete from  ye_text_01 where age>='+str(delete_age)+';'
+                    self.cursor.execute(delete_sql)
+                    self.conn.commit()
+                    print('删除成功')
+                except:
+                    self.conn.rollback()
+            elif delete_table==2:
+                delete_age_xiao=int(input('小于您输入的数字全部删除'))
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    while True:
+        print('名片系统 1.查看  2.删除   3.修改  4.增加  5.退出')
+        shu=int(input('请输入：'))
+        if shu==1:
+            select_1=System()
+            select_1.select()
+        if shu==2:
+            delete_1=System()
+            delete_1.table_delete()
+
