@@ -1,0 +1,15 @@
+from faker import Faker
+from faker import Factory
+fake = Factory().create('zh_CN')
+print(fake.phone_number())
+print(fake.ssn())
+print(fake.text())
+with open('E:\\伪造数据\\test.txt', 'a+') as f:
+    for i in range(10000000):
+        f.write(fake.ssn())
+        f.write('\n')
+f.close()
+print('完成')
+
+
+#https://www.jianshu.com/p/6bd6869631d9
